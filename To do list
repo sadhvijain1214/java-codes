@@ -1,0 +1,116 @@
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class TodoList {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Boolean> completed = new ArrayList<>();
+
+        while (true) {
+            System.out.println("\n===== TO-DO LIST APP =====");
+            System.out.println("1. Add Task");
+            System.out.println("2. View Tasks");
+            System.out.println("3. Mark Task as Completed");
+            System.out.println("4. Delete Task");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice;
+
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+                sc.nextLine();
+            } else {
+                System.out.println("Please enter a valid number.");
+                sc.nextLine();
+                continue;
+            }
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter task: ");
+                    String task = sc.nextLine();
+
+                    if (task.trim().isEmpty()) {
+                        System.out.println("Task cannot be empty.");
+                    } else {
+                        tasks.add(task);
+                        completed.add(false);
+                        System.out.println("Task added successfully!");
+                    }
+                    break;
+
+                case 2:
+                    if (tasks.isEmpty()) {
+                        System.out.println("No tasks available.");
+                    } else {
+                        System.out.println("\nYour Tasks:");
+
+                        for (int i = 0; i < tasks.size(); i++) {
+                            String status = completed.get(i)
+                                    ? "[Completed]" : "[Pending]";
+
+                            System.out.println(
+                                    (i + 1) + ". " + tasks.get(i)
+                                    + " " + status);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Enter task number: ");
+
+                    if (!sc.hasNextInt()) {
+                        System.out.println("Invalid task number.");
+                        sc.nextLine();
+                        break;
+                    }
+
+                    int done = sc.nextInt();
+                    sc.nextLine();
+
+                    if (done >= 1 && done <= tasks.size()) {
+                        completed.set(done - 1, true);
+                        System.out.println("Task marked as completed!");
+                    } else {
+                        System.out.println("Task not found.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Enter task number to delete: ");
+
+                    if (!sc.hasNextInt()) {
+                        System.out.println("Invalid task number.");
+                        sc.nextLine();
+                        break;
+                    }
+
+                    int remove = sc.nextInt();
+                    sc.nextLine();
+
+                    if (remove >= 1 && remove <= tasks.size()) {
+                        tasks.remove(remove - 1);
+                        completed.remove(remove - 1);
+                        System.out.println("Task deleted successfully!");
+                    } else {
+                        System.out.println("Task not found.");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Thank you for using To-Do List!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option. Try again.");
+            }
+        }
+    }
+}
