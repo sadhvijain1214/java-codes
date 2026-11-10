@@ -1,0 +1,51 @@
+
+import java.util.Scanner;
+
+class LoginSystem {
+
+    // Encapsulated data
+    private String username;
+    private String password;
+
+    // Constructor
+    LoginSystem(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    // Login method
+    public boolean login(String user, String pass) {
+
+        if (username.equals(user) && password.equals(pass)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Creating login object
+        LoginSystem obj =
+            new LoginSystem("admin", "12345");
+
+        System.out.print("Enter Username: ");
+        String user = sc.nextLine();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.nextLine();
+
+        // Checking login
+        if (obj.login(user, pass)) {
+            System.out.println("Login Successful!");
+        } else {
+            System.out.println("Invalid Username or Password!");
+        }
+
+        sc.close();
+    }
+}
